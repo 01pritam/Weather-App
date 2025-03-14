@@ -8,39 +8,77 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="card">
-        <div class="search">
-            <input type="text" placeholder="enter the city name" id="search">
-            <button id="btn"><img src="./images/search.png" alt="" srcset=""></button>
+    <div class="container">
+        <div class="header fade-in">
+            <h1>Weather Dashboard</h1>
+            <p>Check the current weather and forecast</p>
         </div>
-        <div class="weather">
-            <img src="images/rain.png" class="weather-icon">
-            <h1 class="temp">
-                32°c
-            </h1>
-            <h2 class="city">Kolkata</h2>
-        </div>
-        <div class="info">
-            <div class="col">
-                <img src="images/humidity.png" alt="" srcset="">
-                    <div >
-                        <p class="humid">80%</p>
-                        <h3>Humidity</h3>
-
-                    </div>
-                    
+        
+        <div class="search-container fade-in-delay-1">
+            <div class="search">
+                <input type="text" placeholder="Enter city name" id="search">
+                <button id="btn">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNlYXJjaCI+PGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iOCIvPjxwYXRoIGQ9Im0yMSAyMS00LTQiLz48L3N2Zz4=" alt="Search">
+                </button>
             </div>
-            <div class="col">
-                <img src="images/wind.png" alt="" srcset="">
-                <div >
-                    
-                    <p class="wind">15km/h</p>
-                    <h3>Wind</h3>
+            <div class="error-message" id="error">City not found. Please try again.</div>
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+        
+        <div class="cards-container fade-in-delay-2">
+            <div class="weather-card">
+                <div class="main-info">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jbG91ZC1yYWluIj48cGF0aCBkPSJNNCAxNC44OTlBNyA3IDAgMSAxIDE1LjcxIDhINjBhNCA0IDAgMCAxIDAgOGgtMS43OTkiLz48cGF0aCBkPSJNMTYgMTN2OCI+PC9wYXRoPjxwYXRoIGQ9Ik04IDEzdjgiPjwvcGF0aD48cGF0aCBkPSJNMTIgMTV2OCI+PC9wYXRoPjwvc3ZnPg==" class="weather-icon" id="weather-icon">
+                    <div class="date" id="date">Friday, March 14</div>
+                    <h1 class="temp" id="temp">32°C</h1>
+                    <h2 class="city" id="city">Kolkata</h2>
+                    <div class="description" id="description">Cloudy</div>
+                </div>
+                
+                <div class="details">
+                    <div class="detail-item">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWRyb3BsZXRzIj48cGF0aCBkPSJNNyAxNi41YTQuNSA0LjUgMCAwIDAgOSAwIi8+PHBhdGggZD0iTTMuMiAxNGEzIDMgMCAxIDEgNC4xLTQuMSIvPjxwYXRoIGQ9Ik0xOS45IDE2LjFhMyAzIDAgMSAwLTQuMS00LjEiLz48cGF0aCBkPSJtMTIgMi0uOSA1LjRhMSAxIDAgMCAwIDEuOCAwTDEyIDIiLz48L3N2Zz4=" alt="Humidity">
+                        <p class="humid" id="humid">80%</p>
+                        <h3>Humidity</h3>
+                    </div>
+                    <div class="detail-item">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXdpbmQiPjxwYXRoIGQ9Ik0xNyAxOUgzIi8+PHBhdGggZD0iTTIxIDEySDN2MmM1Ljg0OCAyLjY1NSA4LjkyNiAyLjcxNSAxOCAwMi03ODEtLjAwMTo1Ljg0OC0yLjY1NSA4LjkyNi0yLjcxNSAxOCAwWiIvPjxwYXRoIGQ9Ik0xMSA1aDE0Ii8+PC9zdmc+" alt="Wind">
+                        <p class="wind" id="wind">15 km/h</p>
+                        <h3>Wind Speed</h3>
+                    </div>
+                    <div class="detail-item">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXRoZXJtb21ldGVyIj48cGF0aCBkPSJNMTQgNGExIDEgMCAwIDAtMiAwdjEwLjEtMSA1IC4zIDEgaC0uOWwtLjA2NS4yQTMuNSAzLjUgMCAxIDAgMTQgMTQuMVYxNC4xbC4wMS0uMWgtLjAxWiIvPjwvc3ZnPg==" alt="Feels Like">
+                        <p id="feels-like">30°C</p>
+                        <h3>Feels Like</h3>
+                    </div>
+                    <div class="detail-item">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdhdWdlIj48cGF0aCBkPSJtMTIgMTQgNC00Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxNCIgcj0iMiIvPjxwYXRoIGQ9Ik0yMiAxMkExMCAxMCAwIDEgMSAxMiAyIi8+PHBhdGggZD0iTTEyIDJhMiAyIDAgMCAxIDIgMnYyYzAgMS4xLS45IDItMiAycy0yLS45LTItMnYtMmEyIDIgMCAwIDEgMi0yWiIvPjxwYXRoIGQ9Ik0yMiAxMmMwIDEuMS0uOSAyLTIgMmgtMmMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTJoMmMxLjEgMCAyIC45IDIgMloiLz48L3N2Zz4=" alt="Pressure">
+                        <p id="pressure">1010 hPa</p>
+                        <h3>Pressure</h3>
+                    </div>
+                </div>
+                
+                <div class="forecast">
+                    <h3>24-Hour Forecast</h3>
+                    <div class="forecast-items" id="forecast">
+                        <div class="forecast-item">
+                            <p class="time">Now</p>
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jbG91ZC1yYWluIj48cGF0aCBkPSJNNCAxNC44OTlBNyA3IDAgMSAxIDE1LjcxIDhINjBhNCA0IDAgMCAxIDAgOGgtMS43OTkiLz48cGF0aCBkPSJNMTYgMTN2OCI+PC9wYXRoPjxwYXRoIGQ9Ik04IDEzdjgiPjwvcGF0aD48cGF0aCBkPSJNMTIgMTV2OCI+PC9wYXRoPjwvc3ZnPg==" alt="Rainy">
+                            <p class="forecast-temp">32°C</p>
+                        </div>
+                        <!-- Forecast items will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
-            
         </div>
+        
+        <footer class="fade-in-delay-2">
+            Weather data powered by OpenWeatherMap
+        </footer>
     </div>
+
     
 <script>
     const searchBox=document.querySelector(".search input");
@@ -85,4 +123,3 @@
 </body>
 </html>
 
-<!-- this is html -->
